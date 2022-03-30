@@ -17,14 +17,13 @@ def index():
     return render_template('index.html')
 @app.route('/pay', methods = ['POST'])
 
-def paynow():
+def checker():
     api_key = "xnd_development_Qlza74hRWMGa4odmMKPAYsH51zryFsnokmHyHEBLrhpuZ4P0J2C3uTCVtgEN"
     xendit_instance = Xendit(api_key=api_key)
     cardNumber = request.form.get("number")
     expDate = request.form.get("exp_date")
     amount = request.form.get("amount")
     cvn = request.form.get("CVN")
-
 
     args = {
         "token_id": '6244121e798b79001c76ac50' ,
