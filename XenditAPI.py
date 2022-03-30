@@ -6,11 +6,11 @@ from flask import Flask, request, render_template, jsonify
 from xendit import Xendit, XenditError, BalanceAccountType
 import xendit
 app = Flask(__name__)
-payment = [
-    {
-        'payment1': "CreditCard",
-    }
-]
+# payment = [
+#     {
+#         'payment1': "CreditCard",
+#     }
+# ]
 @app.route('/')
 def index():
     print(f"credit-num-{int(time.time())}", )
