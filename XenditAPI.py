@@ -6,17 +6,16 @@ from flask import Flask, request, render_template, jsonify
 from xendit import Xendit, XenditError, BalanceAccountType
 import xendit
 app = Flask(__name__)
-# payment = [
-#     {
-#         'payment1': "CreditCard",
-#     }
-# ]
+payment = [
+    {
+        'payment1': "CreditCard",
+    }
+]
 @app.route('/')
 def index():
     print(f"credit-num-{int(time.time())}", )
     return render_template('index.html')
 @app.route('/pay', methods = ['POST'])
-
 def checker():
     api_key = "xnd_development_Qlza74hRWMGa4odmMKPAYsH51zryFsnokmHyHEBLrhpuZ4P0J2C3uTCVtgEN"
     xendit_instance = Xendit(api_key=api_key)
@@ -38,9 +37,10 @@ def checker():
     except XenditError as e:
         print(e)
         return vars(e)
-# @app.route('/app/api/payment/all')
-# def showpayment():
-#     return jsonify(payment)
+
+@app.route('/refund')
+def showpayment():
+    return jsonify(payment)
 
 if __name__ == '__main__':
     app.run(debug=True)

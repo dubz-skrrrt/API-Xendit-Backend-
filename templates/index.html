@@ -30,8 +30,13 @@
         <input type="amount" id="amount" name="amount"><br>
         <label for="CVN">CVN: </label>
         <input type="CVN" id="CVN" name="CVN"><br>
-        <button type="submit">Pay Now</button>
-        <button type="submit">Refund</button>
+          <form action="/pay">
+              <button type="submit">Pay Now</button>
+          </form>
+          <form action="/refund">
+              <button type="submit">Refund</button>
+          </form>
+
       </form>
     </div>
 </body>
