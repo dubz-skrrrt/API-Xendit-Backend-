@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Payment credit card</title>
@@ -22,11 +22,15 @@
       <form action="/pay" method="post">
         <label for="number">Credit Card Number: </label>
         <input type="number" id="number" name="number"><br>
-        <label for="exp_date">Exp Date: </label>
-        <input type="exp_date" id="exp_date" name="exp_date"><br>
+        <label for="exp_dateM">Exp Date Month: </label>
+        <input type="exp_dateM" id="exp_dateM" name="exp_dateM"><br>
+        <label for="exp_dateY">Exp Date Year: </label>
+        <input type="exp_dateY" id="exp_dateY" name="exp_dateY"><br>
         <label for="amount">Amount: </label>
         <input type="amount" id="amount" name="amount"><br>
-        <button type="submit">Submit</button>
+        <label for="CVN">CVN: </label>
+        <input type="CVN" id="CVN" name="CVN"><br>
+        <button type="submit">Pay Now</button>
       </form>
     </div>
 </body>
