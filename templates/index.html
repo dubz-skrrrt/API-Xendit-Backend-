@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment credit card</title>
+</head>
+<style>
+  label {
+    float: left;
+    width: 10%;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+<body>
+    <div>
+      <h2>Pay using Credit Card</h2>
+      <form action="/pay" method="post">
+        <label for="number">Credit Card Number: </label>
+        <input type="number" id="number" name="number"><br>
+        <label for="exp_date">Exp Date: </label>
+        <input type="exp_date" id="exp_date" name="exp_date"><br>
+        <label for="amount">Amount: </label>
+        <input type="amount" id="amount" name="amount"><br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+</body>
+</html>
