@@ -1,16 +1,20 @@
 import os
 import time
-
+import json
+from os import path
+from json import  JSONEncoder
 import xendit
 from flask import Flask, request, render_template, jsonify
 from xendit import Xendit, XenditError, BalanceAccountType
 import xendit
+
 app = Flask(__name__)
-payment = [
-    {
-        'payment1': "CreditCard",
-    }
-]
+payment_List = []
+my_path = 'file.json'
+class paymentEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__
+
 @app.route('/')
 def index():
     print(f"credit-num-{int(time.time())}", )
@@ -25,14 +29,15 @@ def checker():
     cvn = request.form.get("CVN")
 
     args = {
-        "token_id": '6244121e798b79001c76ac50' ,
+        "token_id": '62451a02ceeb1e001c27ef20' ,
         "external_id": f"card_preAuth-{int(time.time())}",
         "amount": amount,
         "card_cvn": cvn,
     }
     try:
         creditPayment = xendit_instance.CreditCard.create_authorization(**args)
-        print(creditPayment)
+        persistentList(vars(creditPayment))
+        print (payment_List)
         return vars(creditPayment)
     except XenditError as e:
         print(e)
@@ -40,7 +45,23 @@ def checker():
 
 @app.route('/refund')
 def showpayment():
-    return jsonify(payment)
+    readList()
+    return jsonify(payment_List)
+
+def readList():
+    if path.exists(my_path):
+        with open(my_path, 'r') as f:
+            prev_json = json.load(f)
+            global payment_List
+            payment_List += prev_json
+
+
+print(payment_List)
+def persistentList(payment):
+    payment_List.append(payment)
+
+    with open(my_path, 'w') as f:
+        json.dump(payment_List, f, indent=2, cls=paymentEncoder)
 
 if __name__ == '__main__':
     app.run(debug=True)
