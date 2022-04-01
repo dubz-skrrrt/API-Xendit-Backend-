@@ -23,10 +23,18 @@ def index():
 def checker():
     api_key = "xnd_development_Qlza74hRWMGa4odmMKPAYsH51zryFsnokmHyHEBLrhpuZ4P0J2C3uTCVtgEN"
     xendit_instance = Xendit(api_key=api_key)
+    CreditCard = xendit_instance.CreditCard
     cardNumber = request.form.get("number")
     expDate = request.form.get("exp_date")
     amount = request.form.get("amount")
     cvn = request.form.get("CVN")
+    charge = CreditCard.create_charge(
+        token_id="5f0410898bcf7a001a00879d",
+        external_id="card_charge-1594106478",
+        amount=75000,
+        card_cvn="123",
+    )
+    print(charge)
 
     args = {
         "token_id": '62451a02ceeb1e001c27ef20' ,
