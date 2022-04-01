@@ -10,6 +10,11 @@ import xendit
 
 app = Flask(__name__)
 payment_List = []
+
+api_key = "xnd_development_Qlza74hRWMGa4odmMKPAYsH51zryFsnokmHyHEBLrhpuZ4P0J2C3uTCVtgEN"
+xendit_instance = Xendit(api_key=api_key)
+
+
 my_path = 'file.json'
 class paymentEncoder(JSONEncoder):
     def default(self, o):
@@ -21,28 +26,26 @@ def index():
     return render_template('index.html')
 @app.route('/pay', methods = ['POST'])
 def checker():
-    api_key = "xnd_development_Qlza74hRWMGa4odmMKPAYsH51zryFsnokmHyHEBLrhpuZ4P0J2C3uTCVtgEN"
-    xendit_instance = Xendit(api_key=api_key)
-    CreditCard = xendit_instance.CreditCard
     cardNumber = request.form.get("number")
     expDate = request.form.get("exp_date")
     amount = request.form.get("amount")
+    ext_id = f"card_preAuth-{int(time.time())}"
     cvn = request.form.get("CVN")
-    charge = CreditCard.create_charge(
-        token_id="5f0410898bcf7a001a00879d",
-        external_id="card_charge-1594106478",
-        amount=75000,
-        card_cvn="123",
-    )
-    print(charge)
-
+    CreditCard = xendit_instance.CreditCard
     args = {
-        "token_id": '62451a02ceeb1e001c27ef20' ,
-        "external_id": f"card_preAuth-{int(time.time())}",
+        "token_id": '62468d330313fe001bb00610' ,
+        "external_id": ext_id,
         "amount": amount,
         "card_cvn": cvn,
+        "authentication_id": '6246a6ac1677d0001aee75ce'
     }
     try:
+        charge = CreditCard.create_charge(
+            token_id="62468d330313fe001bb00610",
+            external_id= f"card_charge-{int(time.time())}",
+            amount=75000,
+        )
+        print(charge)
         creditPayment = xendit_instance.CreditCard.create_authorization(**args)
         persistentList(vars(creditPayment))
         print (payment_List)
@@ -54,7 +57,14 @@ def checker():
 @app.route('/refund')
 def showpayment():
     readList()
-    return jsonify(payment_List)
+    CreditCard = xendit_instance.CreditCard
+
+    refund = CreditCard.create_refund(
+        credit_card_charge_id="6246a2c61677d0001aee74a4",
+        amount=2000,
+        external_id=f"card_refund-{int(time.time())}",
+    )
+    return jsonify(vars(refund))
 
 def readList():
     if path.exists(my_path):
