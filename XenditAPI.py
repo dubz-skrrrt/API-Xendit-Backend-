@@ -45,7 +45,7 @@ class CreateAuthorization:
             creditPayment = xendit_instance.CreditCard.create_authorization(**args)
             persistentList(vars(creditPayment))
             print (payment_List)
-            return vars(creditPayment, "Authorization Successfully Created.")
+            return vars(creditPayment)
         except XenditError as e:
             print(e)
             return vars(e)
@@ -93,9 +93,10 @@ def readList():
             prev_json = json.load(f)
             global payment_List
             payment_List += prev_json
-def persistentList(payment):
-    payment_List.append(payment)
 
+def persistentList(payment):
+    # Maybe can create a clickable table with this list
+    payment_List.append(payment)
     with open(my_path, 'w') as f:
         json.dump(payment_List, f, indent=2, cls=paymentEncoder)
 
@@ -122,5 +123,6 @@ def credit_card_payment():
 
         elif credit_card_input == 3:
             print("Running Create Refund Test")
+        credit_card_input = ask_credit_card_input()
 if __name__ == '__main__':
     app.run(debug=True)
