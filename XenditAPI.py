@@ -40,7 +40,6 @@ class CreateAuthorization:
             "card_cvn": cvn,
             "authentication_id": authID
         }
-
         try:
             creditPayment = xendit_instance.CreditCard.create_authorization(**args)
             persistentList(vars(creditPayment))
@@ -68,7 +67,8 @@ class CreateCharge:
         }
         try:
             charge = xendit_instance.CreditCard.create_charge(**args)
-            return vars(charge, "Charge Successfully Created.")
+            print(charge.capture_amount)
+            return vars(charge)
         except XenditError as e:
             print(e)
             return vars(e)
