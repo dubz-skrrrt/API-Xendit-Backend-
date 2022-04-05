@@ -21,17 +21,25 @@ class paymentEncoder(JSONEncoder):
     def default(self, o):
         return o.__dict__
 
-class CreateAuthorization:
+class createPage:
     @app.route('/')
-    def index():
+    def check():
         ask_credit_card_input()
-        return render_template('index.html')
+        return render_template(credit_card_payment())
+
+class CreateAuthorization:
+
+    def index():
+        req = requests.get('https://api.xendit.co/')
+        print(req.content)
+        data = req.content
+        # return render_template('index.html', data=data)
     @app.route('/pay', methods = ['POST', 'GET'])
     def authorize():
-        authID = request.form.get("auth_id")
-        amount = request.form.get("amount")
+        authID = request.form.get("auth_id") #Get the data from input field
+        amount = request.form.get("amount")  #Get the data from input field
         ext_id = f"card_preAuth-{int(time.time())}"
-        cvn = request.form.get("CVN")
+        cvn = request.form.get("CVN")        #Get the data from input field
         CreditCard = xendit_instance.CreditCard
         args = {
             "token_id": '62468d330313fe001bb00610' ,
@@ -50,19 +58,17 @@ class CreateAuthorization:
             return vars(e)
 
 class CreateCharge:
-    @app.route('/')
-    @app.route('/charge')
+    @app.route('/charge', methods = ['POST', 'GET'])
     def charge():
         authID = request.form.get("auth_id")
         amount = request.form.get("amount")
         ext_id = f"card_preAuth-{int(time.time())}"
-        cvn = request.form.get("CVN")
         charge = xendit_instance.CreditCard
         args = {
             "token_id": '62468d330313fe001bb00610',
             "external_id": ext_id,
             "amount": amount,
-            "card_cvn": cvn,
+            "card_cvn": '123',
             "authentication_id": authID
         }
         try:
@@ -74,8 +80,7 @@ class CreateCharge:
             return vars(e)
 
 class CreateRefund:
-    @app.route('/')
-    @app.route('/refund')
+    @app.route('/refund', methods = ['POST', 'GET'])
     def showpayment():
         readList()
         CreditCard = xendit_instance.CreditCard
@@ -85,7 +90,7 @@ class CreateRefund:
             amount=2000,
             external_id=f"card_refund-{int(time.time())}",
         )
-        return jsonify(vars(refund, "Refund successfully requested"))
+        return jsonify(vars(refund))
 
 def readList():
     if path.exists(my_path):
@@ -113,17 +118,19 @@ def ask_credit_card_input():
         return ask_credit_card_input()
 
 def credit_card_payment():
+
     credit_card_input = ask_credit_card_input()
+    print(credit_card_input)
     while credit_card_input != 0:
         if credit_card_input == 1:
             print("Running Create Authorization Test")
-            CreateAuthorization.authorize()
+            return 'index.html'
         elif credit_card_input == 2:
             print("Running Create Charge Test")
-
+            return 'charge.html'
         elif credit_card_input == 3:
             print("Running Create Refund Test")
+            return 'refund.html'
         credit_card_input = ask_credit_card_input()
-
 if __name__ == '__main__':
     app.run(debug=True)

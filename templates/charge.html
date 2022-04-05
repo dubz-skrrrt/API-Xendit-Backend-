@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Charge Form</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/charge.css') }}"/>
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+    <form action="/charge">
+        <div class="inputBox">
+            <span>Authentication ID number</span>
+            <input type="auth_ID" id="auth_id" name="auth_id" maxlength="16" class="auth-number-input" placeholder="Auth ID Number">
+        </div>
+        <div class="inputBox">
+            <span>Charge Amount</span>
+            <input type="amount" id="amount" name="amount"maxlength="16" class="number-input" placeholder="1000">
+        </div>
+        <input type="submit" value="submit" class="submit-btn">
+    </form>
+  <div class="payment">
+
+
+</body>
+</html>
