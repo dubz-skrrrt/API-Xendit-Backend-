@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Refund Form</title>
+	<link rel="stylesheet" href="design.css"/>
+
+</head>
+<body>
+	
+
+
+<div class="container">
+
+    <form action="">
+        <div class="inputBox">
+            <span>Credit Card ID number</span>
+            <input type="text" maxlength="16" class="card-number-input" placeholder="ID Number">      
+        </div>
+        <div class="inputBox">
+            <span>Refund Amount</span>
+            <input type="text" maxlength="16" class="card-number-input" placeholder="1000">
+        </div>
+        <input type="submit" value="submit" class="submit-btn">
+    </form>
+  <div class="payment">
+    
+
+</body>
+</html>
