@@ -3,9 +3,9 @@ import time
 import json
 from os import path
 from json import  JSONEncoder
-
 import requests
 import xendit
+from print_running_function import print_running_function
 from flask import Flask, request, render_template, jsonify
 from xendit import Xendit, XenditError, BalanceAccountType
 import xendit
@@ -48,7 +48,7 @@ class CreateAuthorization:
         try:
             creditPayment = xendit_instance.CreditCard.create_authorization(**args)
             persistentList(vars(creditPayment))
-            print (payment_List)
+            print_running_function("xendit_instance.CreditCard.create_authorization", args)
             return vars(creditPayment)
         except XenditError as e:
             print(e)
@@ -70,6 +70,7 @@ class CreateCharge:
         }
         try:
             charge = xendit_instance.CreditCard.create_charge(**args)
+            print_running_function("xendit_instance.CreditCard.create_charge", args)
             print(charge.capture_amount)
             return vars(charge)
         except XenditError as e:
@@ -89,6 +90,7 @@ class CreateRefund:
             amount=amount,
             external_id=f"card_refund-{int(time.time())}",
         )
+        print_running_function("xendit_instance.CreditCard.create_refund", args)
         return jsonify(vars(refund))
 
 def readList():
