@@ -12,14 +12,16 @@
 
 <div class="container">
 
-    <form action="/charge">
+    <form action="/charge" method="post">
         <div class="inputBox">
+            <label for="auth_ID"></label>
             <span>Authentication ID number</span>
-            <input type="auth_ID" id="auth_id" name="auth_id" maxlength="16" class="auth-number-input" placeholder="Auth ID Number">
+            <input type="auth_ID" id="auth_id" name="auth_id" class="auth-number-input" placeholder="Auth ID Number">
         </div>
         <div class="inputBox">
+            <label for="amount"></label>
             <span>Charge Amount</span>
-            <input type="amount" id="amount" name="amount"maxlength="16" class="number-input" placeholder="1000">
+            <input type="amount" id="amount" name="amount" class="number-input" placeholder="1000">
         </div>
         <input type="submit" value="submit" class="submit-btn">
     </form>

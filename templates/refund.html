@@ -14,12 +14,14 @@
 
     <form action="/refund">
         <div class="inputBox">
+            <label for="refund_ID"></label>
             <span>Credit Card ID number</span>
-            <input type="text" maxlength="16" class="card-number-input" placeholder="ID Number">
+            <input type="refund_ID" id="refund_ID" name="refund_ID" class="credit-charge-ID-input" placeholder="Credit Charge ID Number">
         </div>
         <div class="inputBox">
+            <label for="amount"></label>
             <span>Refund Amount</span>
-            <input type="amount" id="amount" name="amount" maxlength="16" class="number-input" placeholder="1000">
+            <input type="amount" id="amount" name="amount" class="number-input" placeholder="1000">
         </div>
         <input type="submit" value="submit" class="submit-btn">
     </form>

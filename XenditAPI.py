@@ -84,10 +84,12 @@ class CreateRefund:
     def showpayment():
         readList()
         CreditCard = xendit_instance.CreditCard
-        credit_card_id = input("Please input your credit card charge id: ")
+        credit_card_id = request.form.get("refund_ID")
+        amount = request.form.get("amount")
+            # input("Please input your credit card charge id: ")
         refund = CreditCard.create_refund(
             credit_card_charge_id= credit_card_id,
-            amount=2000,
+            amount=amount,
             external_id=f"card_refund-{int(time.time())}",
         )
         return jsonify(vars(refund))
