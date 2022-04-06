@@ -24,15 +24,12 @@ class paymentEncoder(JSONEncoder):
 class createPage:
     @app.route('/')
     def check():
-        ask_credit_card_input()
-        return render_template(credit_card_payment())
-
-class CreateAuthorization:
-
-    def index():
         req = requests.get('https://api.xendit.co/')
         print(req.content)
         data = req.content
+        return render_template(credit_card_payment())
+
+class CreateAuthorization:
         # return render_template('index.html', data=data)
     @app.route('/pay', methods = ['POST', 'GET'])
     def authorize():
