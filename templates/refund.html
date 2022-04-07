@@ -12,16 +12,16 @@
 
 <div class="container">
 
-    <form action="/refund">
+    <form action="/refund", method="post">
         <div class="inputBox">
             <label for="refund_ID"></label>
             <span>Credit Card ID number</span>
             <input type="refund_ID" id="refund_ID" name="refund_ID" class="credit-charge-ID-input" placeholder="Credit Charge ID Number">
         </div>
         <div class="inputBox">
-            <label for="amount"></label>
+            <label for="ref_amount"></label>
             <span>Refund Amount</span>
-            <input type="amount" id="amount" name="amount" class="number-input" placeholder="e.g. 1000">
+            <input type="ref_amount" id="ref_amount" name="ref_amount" class="number-input" placeholder="e.g. 1000">
         </div>
         <input type="submit" value="submit" class="submit-btn">
     </form>

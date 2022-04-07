@@ -24,9 +24,9 @@ class paymentEncoder(JSONEncoder):
 class createPage:
     @app.route('/')
     def check():
-        req = requests.get('https://api.xendit.co/')
-        print(req.content)
-        data = req.content
+        # req = requests.get('https://api.xendit.co/')
+        # print(req.content)
+        # data = req.content
         return render_template(credit_card_payment())
 
 class CreateAuthorization:
@@ -49,6 +49,7 @@ class CreateAuthorization:
             creditPayment = xendit_instance.CreditCard.create_authorization(**args)
             persistentList(vars(creditPayment))
             print_running_function("xendit_instance.CreditCard.create_authorization", args)
+            readList()
             return vars(creditPayment)
         except XenditError as e:
             print(e)
@@ -80,18 +81,21 @@ class CreateCharge:
 class CreateRefund:
     @app.route('/refund', methods = ['POST', 'GET'])
     def showpayment():
-        readList()
-        CreditCard = xendit_instance.CreditCard
         credit_card_id = request.form.get("refund_ID")
-        amount = request.form.get("amount")
-            # input("Please input your credit card charge id: ")
-        refund = CreditCard.create_refund(
-            credit_card_charge_id= credit_card_id,
-            amount=amount,
-            external_id=f"card_refund-{int(time.time())}",
-        )
-        print_running_function("xendit_instance.CreditCard.create_refund", args)
-        return jsonify(vars(refund))
+        amount = request.form.get("ref_amount")
+        args = {
+            "credit_card_charge_id": credit_card_id,
+            "amount": amount,
+            "external_id": f"card_refund-{int(time.time())}"
+        }
+        try:
+            refund = xendit_instance.CreditCard.create_refund(**args)
+            print_running_function("xendit_instance.CreditCard.create_refund", args)
+            return vars(refund)
+        except XenditError as e:
+            print(e)
+            return vars(e)
+
 
 def readList():
     if path.exists(my_path):
