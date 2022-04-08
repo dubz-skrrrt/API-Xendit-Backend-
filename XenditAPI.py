@@ -51,8 +51,8 @@ class CreateAuthorization:
             print_running_function("xendit_instance.CreditCard.create_authorization", args)
             readList()
             # Show the Start Again
-            print(credit_card_payment())
-            return vars(creditPayment)
+            #print(credit_card_payment())
+            return vars(creditPayment), ask_credit_card_input()
         except XenditError as e:
             print(e)
             return vars(e)
@@ -76,7 +76,7 @@ class CreateCharge:
             print_running_function("xendit_instance.CreditCard.create_charge", args)
             print(charge.capture_amount)
             # Show the Start Again
-            print(credit_card_payment())
+            #print(credit_card_payment())
             return vars(charge)
         except XenditError as e:
             print(e)
@@ -96,7 +96,7 @@ class CreateRefund:
             refund = xendit_instance.CreditCard.create_refund(**args)
             print_running_function("xendit_instance.CreditCard.create_refund", args)
             #Show the Start Again
-            print(credit_card_payment())
+            #print(credit_card_payment())
             return vars(refund)
         except XenditError as e:
             print(e)
